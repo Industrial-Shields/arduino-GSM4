@@ -32,7 +32,7 @@ public:
 
 class ModemClass {
 public:
-  ModemClass(Uart& uart, unsigned long baud, int resetPin, int dtrPin);
+  ModemClass(HardwareSerial& uart, unsigned long baud, int resetPin, int dtrPin);
 
   int begin(bool restart = true);
   void end();
@@ -68,7 +68,7 @@ public:
   void setBaudRate(unsigned long baud);
 
 private:
-  Uart* _uart;
+  HardwareSerial* _uart;
   unsigned long _baud;
   int _resetPin;
   int _dtrPin;

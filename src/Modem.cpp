@@ -19,12 +19,21 @@
 
 #include "Modem.h"
 
-#define MODEM_MIN_RESPONSE_OR_URC_WAIT_TIME_MS 20
+#if defined(ARDUINO_ARCH_SAMD)
+#define SerialGSM Serial1
+#else
+#define SerialGSM Serial2
+#endif
+
+#define GSM_RESETN -1
+#define GSM_DTR -1
+
+#define MODEM_MIN_RESPONSE_OR_URC_WAIT_TIME_MS 170
 
 ModemUrcHandler* ModemClass::_urcHandlers[MAX_URC_HANDLERS] = { NULL };
 Print* ModemClass::_debugPrint = NULL;
 
-ModemClass::ModemClass(Uart& uart, unsigned long baud, int resetPin, int dtrPin) :
+ModemClass::ModemClass(HardwareSerial& uart, unsigned long baud, int resetPin, int dtrPin) :
   _uart(&uart),
   _baud(baud),
   _resetPin(resetPin),
@@ -59,6 +68,8 @@ int ModemClass::begin(bool restart)
     if (!reset()) {
       return 0;
     }
+
+	delay(1000);
   }
 
   if (!autosense()) {
@@ -361,4 +372,4 @@ void ModemClass::setBaudRate(unsigned long baud)
   _baud = baud;
 }
 
-ModemClass MODEM(SerialGSM, 921600, GSM_RESETN, GSM_DTR);
+ModemClass MODEM(SerialGSM, 115200, GSM_RESETN, GSM_DTR);

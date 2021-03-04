@@ -151,7 +151,7 @@ int GPRS::ready()
     }
 
     case GPRS_STATE_SET_AUTH_MODE: {
-       MODEM.sendf("AT+UPSD=0,6,3");
+       MODEM.send("AT+UPSD=0,6,1"); // PAP
       _state = GPRS_STATE_WAIT_SET_AUTH_MODE_RESPONSE;
       ready = 0;
       break;
