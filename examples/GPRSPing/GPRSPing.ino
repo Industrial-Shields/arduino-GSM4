@@ -10,7 +10,7 @@ Circuit:
  created 06 Dec 2017
  by Arturo Guadalupi
 */
-#include <MKRGSM.h>
+#include <GSM4.h>
 
 #include "arduino_secrets.h"
 // Please enter your sensitive data in the Secret tab or arduino_secrets.h

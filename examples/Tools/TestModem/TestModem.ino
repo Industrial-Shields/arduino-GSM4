@@ -15,7 +15,7 @@
 */
 
 // libraries
-#include <MKRGSM.h>
+#include <GSM4.h>
 
 // modem verification object
 GSMModem modem;

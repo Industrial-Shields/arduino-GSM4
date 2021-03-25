@@ -15,7 +15,7 @@
 */
 
 // libraries
-#include <MKRGSM.h>
+#include <GSM4.h>
 
 #include "arduino_secrets.h" 
 // Please enter your sensitive data in the Secret tab or arduino_secrets.h

@@ -13,7 +13,7 @@
 */
 
 // libraries
-#include <MKRGSM.h>
+#include <GSM4.h>
 
 // pin manager object
 GSMPIN PINManager;

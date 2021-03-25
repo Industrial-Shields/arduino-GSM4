@@ -13,7 +13,7 @@
 */
 
 #include <Arduino_JSON.h>
-#include <MKRGSM.h>
+#include <GSM4.h>
 
 #include "Config.h"
 

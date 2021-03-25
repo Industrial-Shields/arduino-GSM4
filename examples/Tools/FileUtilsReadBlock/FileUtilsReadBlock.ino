@@ -18,7 +18,7 @@
 
 */
 
-#include <MKRGSM.h>
+#include <GSM4.h>
 
 GSMFileUtils fileUtils(false);
 

@@ -1,10 +1,10 @@
 #######################################
-# Syntax Coloring Map For MKRGSM
+# Syntax Coloring Map For GSM4
 ####################################### 
 # Class
 #######################################
 
-MKRGSM	KEYWORD1
+GSM4	KEYWORD1
 GSM	KEYWORD1
 GSMVoiceCall	KEYWORD1
 GSM_SMS	KEYWORD1

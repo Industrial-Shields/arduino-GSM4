@@ -12,7 +12,7 @@
 */
 
 #include <ArduinoMqttClient.h>
-#include <MKRGSM.h>
+#include <GSM4.h>
 #include "arduino_secrets.h"
 
 

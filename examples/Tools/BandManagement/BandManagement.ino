@@ -22,7 +22,7 @@
 */
 
 // libraries
-#include <MKRGSM.h>
+#include <GSM4.h>
 
 // initialize the library instance
 GSMBand band;

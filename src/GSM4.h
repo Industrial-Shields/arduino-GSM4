@@ -17,8 +17,8 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _MKRGSM_H_INCLUDED
-#define _MKRGSM_H_INCLUDED
+#ifndef _GSM4_H_INCLUDED
+#define _GSM4_H_INCLUDED
 
 #include "GSM.h"
 #include "GSMVoiceCall.h"
