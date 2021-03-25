@@ -19,14 +19,12 @@
 
 #include "Modem.h"
 
-#if defined(ARDUINO_ARCH_SAMD)
-#define SerialGSM Serial1
-#else
-#define SerialGSM Serial2
+#if !defined(GSM4_RESETN)
+#define GSM4_RESETN -1
 #endif
-
-#define GSM_RESETN -1
-#define GSM_DTR -1
+#if !defined(GSM4_DTR)
+#define GSM4_DTR -1
+#endif
 
 #define MODEM_MIN_RESPONSE_OR_URC_WAIT_TIME_MS 170
 
@@ -372,4 +370,4 @@ void ModemClass::setBaudRate(unsigned long baud)
   _baud = baud;
 }
 
-ModemClass MODEM(SerialGSM, 115200, GSM_RESETN, GSM_DTR);
+ModemClass MODEM(GSM4_SERIAL, 115200, GSM4_RESETN, GSM4_DTR);
