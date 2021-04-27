@@ -65,11 +65,12 @@ int GSMSocketBufferClass::available(int socket)
       return -1;
     }
 
-    if (!response.startsWith("+USORD: ")) {
+	int responseIndex = response.indexOf("+USORD: ");
+	if (responseIndex < 0) {
       return 0;
     }
 
-    int firstQuoteIndex = response.indexOf("\"");
+    int firstQuoteIndex = response.indexOf("\"", responseIndex);
 
     response.remove(0, firstQuoteIndex + 1);
     response.remove(response.length() - 1);
