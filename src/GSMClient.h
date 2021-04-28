@@ -151,6 +151,7 @@ private:
   int _sslprofile;
   bool _writeSync;
   String _response;
+  int _pendingAvailableData;
 };
 
 #endif

@@ -52,7 +52,8 @@ GSMClient::GSMClient(int socket, bool synch) :
   _port(0),
   _ssl(false),
   _sslprofile(1),
-  _writeSync(true)
+  _writeSync(true),
+  _pendingAvailableData(0)
 {
   MODEM.addUrcHandler(this);
 }
@@ -160,6 +161,7 @@ int GSMClient::ready()
       } else {
         _connected = true;
         _state = CLIENT_STATE_IDLE;
+		_pendingAvailableData = 0;
       }
       break;
     }
@@ -334,8 +336,7 @@ uint8_t GSMClient::connected()
     return 0;
   }
 
-  // call available to update socket state
-  if ((GSMSocketBuffer.available(_socket) < 0) || (_ssl && !_connected)) {
+  if (_ssl && !_connected) {
     stop();
 
     return 0;
@@ -359,13 +360,19 @@ int GSMClient::read(uint8_t *buf, size_t size)
     return 0;
   }
 
-  int avail = available();
-
-  if (avail == 0) {
-    return 0;
+  if (_pendingAvailableData == 0) {
+  	return 0;
   }
 
-  return GSMSocketBuffer.read(_socket, buf, size);
+  int readData = GSMSocketBuffer.read(_socket, buf, size);
+  if (readData == 0) {
+    _pendingAvailableData = 0;
+  } else if (_pendingAvailableData > readData) {
+  	_pendingAvailableData -= readData;
+  } else {
+  	_pendingAvailableData = 0;
+  }
+  return readData;
 }
 
 int GSMClient::read()
@@ -391,15 +398,7 @@ int GSMClient::available()
     return 0;
   }
 
-  int avail = GSMSocketBuffer.available(_socket);
-
-  if (avail < 0) {
-    stop();
-
-    return 0;
-  }
-
-  return avail;
+  return _pendingAvailableData;
 }
 
 int GSMClient::peek()
@@ -429,6 +428,7 @@ void GSMClient::stop()
   GSMSocketBuffer.close(_socket);
   _socket = -1;
   _connected = false;
+  _pendingAvailableData = 0;
 }
 
 void GSMClient::handleUrc(const String& urc)
@@ -439,7 +439,9 @@ void GSMClient::handleUrc(const String& urc)
     if (socket == _socket) {
       if (urc.endsWith(",4294967295")) {
         _connected = false;
-      }
+      } else {
+	  	_pendingAvailableData += urc.substring(11).toInt();
+	  }
     }
   }
 }
