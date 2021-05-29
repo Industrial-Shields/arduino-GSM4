@@ -338,17 +338,17 @@ void printFiles(const GSMFileUtils fu)
     auto count { fu.fileCount() };
     String files[count];
 
-    Serial.print(count);
-    Serial.print(count == 1 ? " file" : " files");
-    Serial.println(" found.");
+    //Serial.print(count);
+    //Serial.print(count == 1 ? " file" : " files");
+    //Serial.println(" found.");
 
     fu.listFiles(files);
 
     for (auto f : files) {
-        Serial.print("File ");
-        Serial.print(f);
-        Serial.print(" - Size: ");
-        Serial.print(fu.listFile(f));
-        Serial.println();
+        //Serial.print("File ");
+        //Serial.print(f);
+        //Serial.print(" - Size: ");
+        //Serial.print(fu.listFile(f));
+        //Serial.println();
     }
 }
