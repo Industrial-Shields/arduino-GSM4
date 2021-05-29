@@ -62,7 +62,7 @@ int GSMSocketBufferClass::available(int socket)
     MODEM.sendf("AT+USORD=%d,%d", socket, GSM_SOCKET_BUFFER_SIZE);
     int status = MODEM.waitForResponse(10000, &response);
     if (status != 1) {
-      return -1;
+      return 0;
     }
 
 	int responseIndex = response.indexOf("+USORD: ");
