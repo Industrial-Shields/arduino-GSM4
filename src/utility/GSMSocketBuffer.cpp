@@ -26,7 +26,7 @@
 
 #define GSM_SOCKET_NUM_BUFFERS (sizeof(_buffers) / sizeof(_buffers[0]))
 
-#define GSM_SOCKET_BUFFER_SIZE 512
+#define GSM_SOCKET_BUFFER_SIZE 64
 
 GSMSocketBufferClass::GSMSocketBufferClass()
 {
