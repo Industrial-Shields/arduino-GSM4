@@ -261,14 +261,12 @@ int ModemClass::ready()
 
 void ModemClass::poll()
 {
+	static String __response;
   while (_uart->available()) {
     char c = _uart->read();
 
-    if (_debugPrint) {
-      _debugPrint->write(c);
-    }
-
     _buffer += c;
+	__response += c;
 
     switch (_atCommandState) {
       case AT_COMMAND_IDLE:
@@ -319,6 +317,11 @@ void ModemClass::poll()
             if (_lowPowerMode) {
               digitalWrite(_dtrPin, HIGH);
             }
+
+            if (_debugPrint) {
+              _debugPrint->print(__response);
+            }
+            __response = "";
 
             if (_responseDataStorage != NULL) {
               _buffer.remove(responseResultIndex);
