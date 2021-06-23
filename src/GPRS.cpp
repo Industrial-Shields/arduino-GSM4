@@ -169,8 +169,12 @@ int GPRS::ready()
     }
 
     case GPRS_STATE_SET_USERNAME: {
-      MODEM.sendf("AT+UPSD=0,2,\"%s\"", _username);
-      _state = GPRS_STATE_WAIT_SET_USERNAME_RESPONSE;
+      if (strlen(_username) > 0) {
+        MODEM.sendf("AT+UPSD=0,2,\"%s\"", _username);
+        _state = GPRS_STATE_WAIT_SET_USERNAME_RESPONSE;
+	  } else {
+	  	_state = GPRS_STATE_SET_PASSWORD;
+	  }
       ready = 0;
       break;
     }
@@ -187,8 +191,12 @@ int GPRS::ready()
     }
 
     case GPRS_STATE_SET_PASSWORD: {
-      MODEM.sendf("AT+UPSD=0,3,\"%s\"", _password);
-      _state = GPRS_STATE_WAIT_SET_PASSWORD_RESPONSE;
+      if (strlen(_password) > 0) {
+        MODEM.sendf("AT+UPSD=0,3,\"%s\"", _password);
+        _state = GPRS_STATE_WAIT_SET_PASSWORD_RESPONSE;
+	  } else {
+        _state = GPRS_STATE_SET_DYNAMIC_IP;
+	  }
       ready = 0;
       break;
     }
